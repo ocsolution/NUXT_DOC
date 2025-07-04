@@ -28,14 +28,12 @@ Follow these steps to set up the project locally:
    ```bash
    npm install
    ```
-3. **Environment Configuration**:
-   - Copy `.env.example` to `.env`.
-   - Configure environment variables (e.g., API endpoints, keys).
-4. **Run the Project**:
-   - Development: `npm run dev` (Vite-powered HMR).
-   - Production Build: `npm run build && npm run start`.
-   - Static Site: `npm run generate` (for SSG).
-5. **Note**: On Windows, use WSL for faster HMR if performance is slow.
+3. **Run the Project**:
+   - Development: `npm run dev`.
+   - Production build: `npm run generate`.
+   - Production build for HCS: `npm run generateHcs`.
+   - Production deploy `bash deploy.sh`
+4. **Note**: On Windows, use WSL for faster HMR if performance is slow.
 
 ## Project Structure
 The project follows a modular structure for scalability and maintainability:
