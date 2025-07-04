@@ -18,22 +18,16 @@ This document provides comprehensive guidance for developers working on a Nuxt 3
 
 ## Project Setup
 Follow these steps to set up the project locally:
-
-1. **Clone the Repository**:
-   ```bash
-   git clone <repository-url>
-   cd <project-name>
-   ```
-2. **Install Dependencies**:
+1. **Install Dependencies**:
    ```bash
    npm install
    ```
-3. **Run the Project**:
+2. **Run the Project**:
    - Development: `npm run dev`.
    - Production build: `npm run generate`.
    - Production build for HCS: `npm run generateHcs`.
    - Production deploy `bash deploy.sh`
-4. **Note**: On Windows, use WSL for faster HMR if performance is slow.
+3. **Note**: On Windows, use WSL for faster HMR if performance is slow.
 
 ## Project Structure
 The project follows a modular structure for scalability and maintainability:
@@ -125,9 +119,8 @@ definePageMeta({
 Use with useHttp
 
 - **Url**: Specifies the endpoint for the API request.
-  - Relative path: /api/somepath (e.g., for local or same-origin requests).
-  - Absolute URL: https://domain.com/api/somepath (e.g., for external APIs).
-  - Example: useHttp('/api/users') or useHttp('https://api.example.com/users').
+  - Relative path: `/api/somepath` (e.g., for local or same-origin requests).
+  - Absolute URL: `https://domain.com/api/somepath` (e.g., for external APIs).
 - **Options**: 
   - **method**: Specifies the HTTP method for the request.
     - GET or POST (case-insensitive).
@@ -164,6 +157,25 @@ const { data, error } = await useHttp(apis.studyClass, {
 // to cancel the request
 controller.abort();
 ```
+
+## Using Data Across Pages
+This guide explains how to share and use data across pages in a web application, focusing on two primary methods: dynamic pages and query strings. These approaches are useful for passing data between pages, ensuring seamless user experiences while maintaining authentication and permission checks as described in the API Usage Guide.
+- **create dynamic routes**(pages/user/:id)
+- **queryParams**:  key (string) and value (object)
+- Pass only small, essential data (e.g., IDs, simple filters) via query strings.
+- Use query strings to trigger data fetching or component behavior, not to carry large payloads.
+```javascript
+// Create queryString
+const queryString = queryParams('data', {});
+
+// Geting data
+const queryData = queryParams();
+
+console.log(queryData.data)
+```
+
+## Using Data Across Components
+This guide explains how to share and use data across components in a Nuxt web application, The guide uses Pinia, a state management library for Vue.js, to manage shared data across components.
 
 ## Development Guidelines
 - **Code Style**: Use ESLint and Prettier for consistent formatting. Configure in `.eslintrc` or `package.json`.
