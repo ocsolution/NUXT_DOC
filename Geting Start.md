@@ -105,15 +105,27 @@ if (import.meta.hot) {
 }
 ```
 
-### Middleware
-Use middleware
-- **Authentication (auth)**: Ensure that the page requires a user to log in before accessing it.
-- **Permission (permission)**: Ensure that the page can only be accessed by users who have the appropriate permissions.
+### Middlewares
+This note explains how to implement layouts in a Nuxt.js application, focusing on the default and navbar layouts. Layouts define the structure of pages, allowing consistent rendering of components like navigation bars or footers across multiple pages.
 ```javascript
 definePageMeta({
   middleware: ["auth", "permission"],
+  ...
 });
 ```
+
+### Layouts
+- `default` - No navbar
+- `navbar` - With list of menu
+```javascript
+definePageMeta({
+  ...
+  layout: 'navbar'
+});
+```
+
+### Breadcrumb
+A list of links that indicate the current page's location within a navigational hierarchy.
 
 ### Calling API
 Use with useHttp
@@ -122,17 +134,17 @@ Use with useHttp
   - Relative path: `/api/somepath` (e.g., for local or same-origin requests).
   - Absolute URL: `https://domain.com/api/somepath` (e.g., for external APIs).
 - **Options**: 
-  - **method**: Specifies the HTTP method for the request.
-    - GET or POST (case-insensitive).
-  - **data**: The payload to send with the request.
-  - **headers**: Custom headers to include in the request.
-  - **isGlobal**:
+  - `method`: Specifies the HTTP method for the request.
+    - `GET` or `POST` (case-insensitive).
+  - `data`: The payload to send with the request.
+  - `headers`: Custom headers to include in the request.
+  - `isGlobal`:
     - Set to true for requests that do not require authentication and can be shared across the application (e.g., public API endpoints).
     - Set to false for requests that require authentication and are specific to a user login.
-  - **isWeb**: Indicates if the request is made to a web-based URL.
-  - **alertError**: Controls whether to display an error alert on request failure.
-  - **alertSuccess**: Controls whether to display a success alert on request completion.
-  - **signal**: An AbortSignal to cancel the request if needed.
+  - `isWeb`: Indicates if the request is made to a web-based URL.
+  - `alertError`: Controls whether to display an error alert on request failure.
+  - `alertSuccess`: Controls whether to display a success alert on request completion.
+  - `signal`: An AbortSignal to cancel the request if needed.
 ```javascript
 const { data, error } = await useHttp(apis.studyClass, {
   method: "POST",
@@ -161,9 +173,9 @@ controller.abort();
 ## Using Data Across Pages
 This guide explains how to share and use data across pages in a web application, focusing on two primary methods: dynamic pages and query strings. These approaches are useful for passing data between pages, ensuring seamless user experiences while maintaining authentication and permission checks as described in the API Usage Guide.
 - **create dynamic routes**(pages/user/:id)
-- **queryParams**:  key (string) and value (object)
-- Pass only small, essential data (e.g., IDs, simple filters) via query strings.
-- Use query strings to trigger data fetching or component behavior, not to carry large payloads.
+- **queryParams**:  key (string) and value (object) `queryParams(key, data)`
+  - Pass only small, essential data (e.g., IDs, simple filters) via query strings.
+  - Not to carry large payloads.
 ```javascript
 // Create queryString
 const queryString = queryParams('data', {});
