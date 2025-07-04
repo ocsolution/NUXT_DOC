@@ -37,18 +37,6 @@ Follow these steps to set up the project locally:
 
 ## Project Structure
 The project follows a modular structure for scalability and maintainability:
-
-- **components/**: Reusable Vue components.
-  - Example: `components/mainModule/subModule/HeaderComponent.vue`
-- **composables/**: Custom composables for reusable logic.
-  - Example: `composables/mainComposable/subComposable/useAuth.ts`
-- **pages/**: File-based routing for pages.
-  - Example: `pages/main_page/sub_page.vue`
-- **stores/**: State management with Pinia.
-  - Example: `stores/mainStore/subStore.ts`
-- **public/**: Static assets (e.g., images, fonts).
-- **nuxt.config.ts**: Nuxt configuration file.
-
 Example directory structure:
 ```plaintext
 project-root/
@@ -101,7 +89,7 @@ Nuxt 3 uses file-based routing. Pages are defined in the `pages/` directory:
 - `pages/product_detail/[id].vue` → `/product_detail/:id` (dynamic route)
 
 ### State Management
-Use Pinia for state management:
+Use Pinia for state management [https://pinia.vuejs.org](https://pinia.vuejs.org/getting-started.html)
 ```javascript
 // stores/mainStore/countStore.ts
 export const useCountStore = defineStore('CountStore', {
@@ -123,6 +111,60 @@ if (import.meta.hot) {
 }
 ```
 
+### Middleware
+Use middleware
+- **Authentication (auth)**: Ensure that the page requires a user to log in before accessing it.
+- **Permission (permission)**: Ensure that the page can only be accessed by users who have the appropriate permissions.
+```javascript
+definePageMeta({
+  middleware: ["auth", "permission"],
+});
+```
+
+### Calling API
+Use with useHttp
+
+- **Url**: Specifies the endpoint for the API request.
+  - Relative path: /api/somepath (e.g., for local or same-origin requests).
+  - Absolute URL: https://domain.com/api/somepath (e.g., for external APIs).
+  - Example: useHttp('/api/users') or useHttp('https://api.example.com/users').
+- **Options**: 
+  - **method**: Specifies the HTTP method for the request.
+    - GET or POST (case-insensitive).
+  - **data**: The payload to send with the request.
+  - **headers**: Custom headers to include in the request.
+  - **isGlobal**:
+    - Set to true for requests that do not require authentication and can be shared across the application (e.g., public API endpoints).
+    - Set to false for requests that require authentication and are specific to a user login.
+  - **isWeb**: Indicates if the request is made to a web-based URL.
+  - **alertError**: Controls whether to display an error alert on request failure.
+  - **alertSuccess**: Controls whether to display a success alert on request completion.
+  - **signal**: An AbortSignal to cancel the request if needed.
+```javascript
+const { data, error } = await useHttp(apis.studyClass, {
+  method: "POST",
+  data: filter,
+  ...
+});
+```
+Cancel the request
+```javascript
+// At the top
+const controller;
+
+// Calling api
+controller = new AbortController();
+const { data, error } = await useHttp(apis.studyClass, {
+  method: "POST",
+  data: filter,
+  signal: controller.signal,
+  ...
+});
+
+// to cancel the request
+controller.abort();
+```
+
 ## Development Guidelines
 - **Code Style**: Use ESLint and Prettier for consistent formatting. Configure in `.eslintrc` or `package.json`.
 - **Clean Code**: Write modular, commented code. Avoid large files; break logic into composables and components.
@@ -141,6 +183,8 @@ if (import.meta.hot) {
 - [Nuxt 3 Documentation](https://nuxt.com)
 - [Nuxt Modules](https://modules.nuxtjs.org)
 - [Vue.js Documentation](https://vuejs.org)
+- [NuxtUI Documentation](https://ui2.nuxt.com)
+- [Flowbite Documentation](https://flowbite-vue.com)
 
 ## Conclusion
 This documentation provides a clear and structured guide for developing with the Nuxt 3 project. By adhering to the naming conventions, project structure, and usage patterns for helpers, cookies, and APIs, developers can efficiently contribute to and maintain the codebase. Regularly update this documentation to reflect changes in the project.
