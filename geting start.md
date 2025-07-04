@@ -58,6 +58,12 @@ project-root/
 │   ├── lang/
 │   │   └── km.json
 │   │   └── en.json
+│   ├── helper/
+│   │   └── api.js
+│   │   └── str.js
+│   ├── json/
+│   │   └── studentType.json
+│   │   └── item.json
 ├── components/
 │   ├── mainModule/
 │   │   └── subModule/
@@ -73,6 +79,7 @@ project-root/
 │   ├── mainStore/
 │   │   └── subStore.ts
 ├── public/
+├── utils/
 └── nuxt.config.ts
 ```
 
