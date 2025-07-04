@@ -137,7 +137,7 @@ if (import.meta.hot) {
 - Follow setup instructions above.
 - Create feature branches and submit pull requests.
 - Refer to `CONTRIBUTING.md` for detailed guidelines.
-- Join the Nuxt community at [nuxt.com/community](https://nuxt.com/community).
+- Join the Nuxt community at <a href="https://nuxt.com/docs/community/getting-help" target="_blank">nuxt.com/community</a>.
 
 ## Additional Resources
 - [Nuxt 3 Documentation](https://nuxt.com)
