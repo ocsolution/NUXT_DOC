@@ -1,23 +1,3 @@
-# OC Nuxt
-
-- [OCTable](/_doc/datatable)
-- [OCForm](/_doc/form)
-- [OCFormGroup](/_doc/formgroup)
-- [OCInput](/_doc/input)
-- [OCCheckbox](/_doc/checkbox)
-- [OCCheckboxGroup](/_doc/checkboxgroup)
-- [OCRadio](/_doc/radio)
-- [OCRadioGroup](/_doc/radiogroup)
-- [OCTextarea](/_doc/textarea)
-- [Buttons](/_doc/button)
-- [Avatas](/_doc/avata)
-- [OCSelect](/_doc/select)
-- [OCDrawer](/_doc/drawer)
-- [OCModal](/_doc/modal)
-- [OCTab](/_doc/tab)
-- [<a href="https://zod.dev/?id=required" target="_blank">Zod Validate</a>] ⇲
-- [<a href="https://flowbite-vue.com/components/accordion" target="_blank">Flowbite</a>] ⇲
-
 # Naming Structure
 
 - **Page name**: `home_page`, `user_profile_page`
