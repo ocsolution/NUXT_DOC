@@ -40,9 +40,6 @@ project-root/
 │   ├── lang/
 │   │   └── km.json
 │   │   └── en.json
-│   ├── helper/
-│   │   └── api.js
-│   │   └── str.js
 │   ├── json/
 │   │   └── studentType.json
 │   │   └── item.json
@@ -60,6 +57,9 @@ project-root/
 ├── stores/
 │   ├── mainStore/
 │   │   └── subStore.ts
+├── helpers/
+│   └── apis.js
+│   └── str.js
 ├── public/
 ├── utils/
 └── nuxt.config.ts
