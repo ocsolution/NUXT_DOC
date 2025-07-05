@@ -8,25 +8,25 @@ The following utility functions are available to streamline development in the N
 const data1 = {name: "foo"}
 const data2 = copyWith(data1);
 ```
-- **`getCurrencyIcon`**: Retrieves the emoji or image representation of a currency (e.g., USD → 🇺🇸). Returns a fallback for unsupported currencies.
+- **`getCurrencyFlag`**: Retrieves the emoji or image representation of a currency (e.g., USD → 🇺🇸). Returns a fallback for unsupported currencies.
 ```javascript
-const icon = getCurrencyIcon(data1);
+const imagePage = getCurrencyFlag('currencyCode');
 ```
 - **`getDeviceId`**: Generates or retrieves a unique device identifier for tracking or analytics. Ensures privacy compliance (e.g., GDPR) and works in both client and server contexts.
 ```javascript
-const icon = getCurrencyIcon(data1);
+const deviceId = getDeviceId();
 ```
-- **`buildUrl`**: Constructs a URL for API endpoints, Nuxt routes, or external links. Leverages Nuxt’s `useRequestURL` or `$fetch` for robust URL handling.
+- **`getUrl`**: Get a URL for API or Web endpoints.
 ```javascript
-const icon = getCurrencyIcon(data1);
+const url = getUrl('url path', isWeb);
 ```
 - **`isEmpty`**: Checks if a value (e.g., object, array, string) is empty, null, or undefined. Handles edge cases for various data types.
 ```javascript
-const icon = getCurrencyIcon(data1);
+isEmpty(data); // bool
 ```
 - **`isNotEmpty`**: Checks if a value is non-empty. Consider using `!isEmpty` for simplicity, as this function is a convenience wrapper.
 ```javascript
-const icon = getCurrencyIcon(data1);
+isNotEmpty(data); // bool
 ```
 - **`checkGlobalContext`**: Verifies global application settings or context (e.g., environment variables or Nuxt app state). Safe for use in both SSR and CSR.
 ```javascript
@@ -34,7 +34,7 @@ const icon = getCurrencyIcon(data1);
 ```
 - **`getLuminance`**: Calculates the luminance of a color for accessibility or theming purposes, following W3C standards.
 ```javascript
-const icon = getCurrencyIcon(data1);
+const isDark = getLuminance('rgb');
 ```
 - **`translateBy`**: Translates a key using Nuxt’s i18n module (`$t`). Supports dynamic key-based translations with fallback handling.
 ```javascript
