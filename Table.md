@@ -35,6 +35,29 @@ const people = [{
 ```
 
 + Use the `api` prop to get from server side to display in the table. but prop `columns` is required.
+  - if **api** method of api is `GET` then **api** prop gets a string value.
+  - if **api** method of api is `POST` then **api** prop gets a object value.
+
+```vue
+<template>
+   <OCTable :api="api" :columns="columns"/>
+</template>
+
+<script setup>
+// when api use with method GET
+const api = 'api/table/list'
+
+// when api use with method POST
+const api = { url:'api/table/list', method:'POST' }
+
+const columns = [
+  { title: 'Code', data: 'Code', class: 'min-width' },
+  { title: 'Name', data: 'Name', class: 'min-width' },
+  { title: 'EnglishName', data: 'EnglishName', class: 'min-width' },
+  { title: 'Action', data: null, class: 'min-width', render:'#action' },
+]
+</script>
+```
 
 ### columns
 Use the `columns` prop to configure which columns to display. It's an array of objects with the following properties:
@@ -49,9 +72,7 @@ Use the `columns` prop to configure which columns to display. It's an array of o
 
 ```vue
 <template>
-  <div>
-    <OCTable :data="data" :columns="columns"/>
-  </div>
+   <OCTable :data="data" :columns="columns"/>
 </template>
 
 <script setup>
@@ -94,7 +115,18 @@ const columns = [
 </script>
 ```
 
-
+### options 
+Use the `options` can customise the way that it will present its interface, and the features available, to the end user. This is done through its configuration options, which are set at initialisation time.
+- **isScroll**: Custom: Likely a flag to conditionally enable scroll-related styles or logic in your component. Default: false.
+- **scrollY**: Enables vertical scrolling and sets fixed height (e.g., 400, '400px'). Disables pagination if large enough to fit all data. Default: 400.
+- **scrollX**: Enables horizontal scrolling. Useful when table width exceeds container. Default: false
+- **info**: Enables text "Total Records: 0". Default: true.
+- **searching**: 	Enables the input search. Default: true.
+- **paging**: Enables pagination and select record. Default: true.
+- **reload**: Enables button reload. Default: true.
+- **lengthMenu**: Dropdown menu for number of rows per page. Default: [10, 25, 50, 100].
+- **pageLength**: Number of rows to show per page. Default: 10.
+You find more options in [datatable.net](https://datatables.net/reference/option/)
 
 
 
