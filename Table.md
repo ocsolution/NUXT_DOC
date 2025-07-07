@@ -4,7 +4,10 @@ Display data in a table.
 
 ## Usage 
 
-+ Use the `data` prop to set the data to display in the table. By default, the table will display all the fields of the rows.
+## prop
+
+### + data
+Use the `data` prop to set the data to display in the table. By default, the table will display all the fields of the rows.
 
 ```vue
 <script setup>
@@ -34,7 +37,8 @@ const people = [{
 </template>
 ```
 
-+ Use the `api` prop to get from server side to display in the table. but prop `columns` is required.
+### + api
+Use the `api` prop to get from server side to display in the table. but prop `columns` is required.
   - if **api** method of api is `GET` then **api** prop gets a string value.
   - if **api** method of api is `POST` then **api** prop gets a object value.
 
@@ -59,7 +63,7 @@ const columns = [
 </script>
 ```
 
-### columns
+### + columns
 Use the `columns` prop to configure which columns to display. It's an array of objects with the following properties:
 - **title**: Column header name shown in the table.
 - **data**: Specifies which property of the row data this column displays. Can be dot notation ('user.name') or a function.
@@ -115,7 +119,7 @@ const columns = [
 </script>
 ```
 
-### options 
+### + options 
 Use the `options` can customise the way that it will present its interface, and the features available, to the end user. This is done through its configuration options, which are set at initialisation time.
 - **isScroll**: Custom: Likely a flag to conditionally enable scroll-related styles or logic in your component. Default: false.
 - **scrollY**: Enables vertical scrolling and sets fixed height (e.g., 400, '400px'). Disables pagination if large enough to fit all data. Default: 400.
@@ -126,9 +130,35 @@ Use the `options` can customise the way that it will present its interface, and 
 - **reload**: Enables button reload. Default: true.
 - **lengthMenu**: Dropdown menu for number of rows per page. Default: [10, 25, 50, 100].
 - **pageLength**: Number of rows to show per page. Default: 10.
+  
 You find more options in [datatable.net](https://datatables.net/reference/option/)
 
+```vue
+<script setup>
+const optionDefault = {
+    isScroll: true,
+    scrollY: 400,
+    scrollX: false,
+    info: true,
+    searching: true,
+    paging: true,
+    reload: true,
+    responsive: {
+      details: {
+        renderer: DataTablesCore.Responsive.renderer.listHiddenNodes(),
+      },
+    },
+    lengthMenu: [10, 25, 50, 100],
+    pageLength: 10,
 
+  };
+</script>
+```
+
+### + selectedPk
+
+### ref of Table
+Use to call function from Table. It has function such as { **dt()**, **filter()**, **reload()**, **responsive()** }.
 
 
 
