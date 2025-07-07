@@ -45,12 +45,12 @@ project-root/
 │   │   └── item.json
 ├── components/
 │   ├── mainModule/
-│   │   └── subModule/
-│   │       └── HeaderComponent.vue
+│   │   ├── subModule/
+│   │   │   └── HeaderComponent.vue
 ├── composables/
 │   ├── mainComposable/
-│   │   └── subComposable/
-│   │       └── useAuth.ts
+│   │   ├── subComposable/
+│   │   │   └── useAuth.ts
 ├── pages/
 │   ├── main_page/
 │   │   └── sub_page.vue
@@ -58,9 +58,12 @@ project-root/
 │   ├── mainStore/
 │   │   └── subStore.ts
 ├── helpers/
-│   └── apis.js
+│   │── apis.js
 │   └── str.js
 ├── public/
+│   ├── _kedtec/
+│   │   │── img
+│   │   │   └── file.png
 ├── utils/
 └── nuxt.config.ts
 ```
