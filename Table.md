@@ -1,10 +1,10 @@
-# Table
+# OCTable
 
 Display data in a table.
 
 ## Usage 
 
-## prop
+## Props
 
 ### + data
 Use the `data` prop to set the data to display in the table. By default, the table will display all the fields of the rows.
@@ -157,7 +157,51 @@ const optionDefault = {
 
 ### + selectedPk
 
-### ref of Table
+### + stateKey
+
+### + keyTable
+
+### + showTemplate
+
+### + isTotalDetail
+
+### + haveBorder
+
+### + autoload
+
+### + selectAllPk
+
+### + hideGroupBtnSelect
+
+## Slots
+
+### + headerTable
+
+### + headerLeft
+
+### + headerCenter
+
+### + headerApplyFilter
+
+### + headerRight
+
+### + middleTable
+
+### + template
+
+### + loading
+
+### + totalDetail
+
+### + ShowDetailAfterTableOne
+
+### + ShowDetailAfterTableTwo
+
+### + Dynamic
+
+## Emits
+
+## Ref
 Use to call function from Table. It has function such as { **dt()**, **filter()**, **reload()**, **responsive()** }.
 
 
