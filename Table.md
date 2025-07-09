@@ -263,7 +263,7 @@ Use the `hideGroupBtnSelect` to hide the "Select All" button group. When set to 
 You can use `slots` to customize the header, the footer and data cells of the table.
 
 ### + headerTable
-Use the `#headerTable` slot to customize
+Use the `#headerTable` slot to customize top of header.
 
 ### + headerLeft
 
