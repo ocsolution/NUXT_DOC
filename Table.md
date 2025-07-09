@@ -155,13 +155,94 @@ const optionDefault = {
 </script>
 ```
 
-### + selectedPk
+### + selectedPk and v-model
+The `selectedPk` is the actual string key and Use a `v-model` to make the table selectable. The `v-model` will be an array of the selected rows. 
+
+```vue
+<template>
+   <OCTable v-model="selected" selectedPk="Code" :api="api" :columns="columns"/>
+</template>
+
+<script setup>
+const api = { url:'api/table/list', method:'POST' }
+const selected = ref()
+const columns = [
+  { title: 'Code', data: 'Code', class: 'min-width' },
+  { title: 'Name', data: 'Name', class: 'min-width' },
+  { title: 'EnglishName', data: 'EnglishName', class: 'min-width' },
+  { title: 'Action', data: null, class: 'min-width', render:'#action' },
+]
+</script>
+```
 
 ### + stateKey
+Use the `stateKey` for allows the OCTable to remember data and filter when change to detail page and back to index page. The `stateKey` is string.
+
+```vue
+<template>
+   <OCTable stateKey="stateOCTable" :api="api" :columns="columns"/>
+</template>
+
+<script setup>
+const api = { url:'api/table/list', method:'POST' }
+const columns = [
+  { title: 'Code', data: 'Code', class: 'min-width' },
+  { title: 'Name', data: 'Name', class: 'min-width' },
+  { title: 'EnglishName', data: 'EnglishName', class: 'min-width' },
+  { title: 'Action', data: null, class: 'min-width', render:'#action' },
+]
+</script>
+```
 
 ### + keyTable
+Use the `keyTable` to identify a DOM element uniquely so Vue can efficiently re-render or re-create it when something changes.
+
+```vue
+<template>
+  <OCWrapperPage>
+    <OCBtn type="reload" color="reload" icon="reload" lable="Change Key" @click="keyTable = !keyTable"/>
+    <OCTable :keyTable="" :api="api" :columns="columns"/>
+  </OCWrapperPage>
+</template>
+
+<script setup>
+const api = { url:'api/table/list', method:'POST' }
+const keyTable = ref(false)
+const columns = [
+  { title: 'Code', data: 'Code', class: 'min-width' },
+  { title: 'Name', data: 'Name', class: 'min-width' },
+  { title: 'EnglishName', data: 'EnglishName', class: 'min-width' },
+  { title: 'Action', data: null, class: 'min-width', render:'#action' },
+]
+</script>
+```
 
 ### + showTemplate
+Use the `showTemplate` use to hidden columns and rows and show template for customize grid card. when use `showTemplate` must be use slot name `template` also.
+
+```vue
+<template>
+   <OCTable stateKey="stateOCTable" :api="api" :columns="columns">
+      <template #template="[data]">
+        <div class="w-full grid grid-cols-[repeat(auto-fill,minmax(263px,1fr))] items-center gap-3">
+          <div v-for="d in data">
+            <div>{{d.Code}} • {{d.EnglishName}}</div>
+          </div>
+        </div>
+      </template>
+   </OCTable>
+</template>
+
+<script setup>
+const api = { url:'api/table/list', method:'POST' }
+const columns = [
+  { title: 'Code', data: 'Code', class: 'min-width' },
+  { title: 'Name', data: 'Name', class: 'min-width' },
+  { title: 'EnglishName', data: 'EnglishName', class: 'min-width' },
+  { title: 'Action', data: null, class: 'min-width', render:'#action' },
+]
+</script>
+```
 
 ### + isTotalDetail
 
