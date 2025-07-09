@@ -218,7 +218,7 @@ const columns = [
 ```
 
 ### + showTemplate
-Use the `showTemplate` use to hidden columns and rows and show template for customize grid card. when use `showTemplate` must be use slot name `template` also.
+Use the `showTemplate` to hide the default table rows and columns, and instead display a custom grid or card layout using a template. When `showTemplate` is set to `true`, you must also provide a `<template v-slot:template="[data]">` slot for rendering the custom content. Default: false.
 
 ```vue
 <template>
@@ -245,10 +245,14 @@ const columns = [
 ```
 
 ### + isTotalDetail
+Use the `isTotalDetail` to hidden OCTableFooter if `isTotalDetail` is `true`. Default: false.
 
 ### + haveBorder
+Use the `haveBorder` for OCTable has style border if `haveBorder` is `true`. Default: false.
 
 ### + autoload
+Use the `autoload` in combination with the `api` prop to control whether data is automatically loaded from the server. When `autoload` is set to `false`, data will not be fetched automatically.
+To manually trigger data loading, use the exposed `ref` and call the `reload` function. Default: true.
 
 ### + selectAllPk
 
