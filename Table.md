@@ -115,21 +115,20 @@ const columns = [
     render:'#actions'
   }
 ]
-
 </script>
 ```
 
 ### + options 
-Use the `options` can customise the way that it will present its interface, and the features available, to the end user. This is done through its configuration options, which are set at initialisation time.
-- **isScroll**: Custom: Likely a flag to conditionally enable scroll-related styles or logic in your component. Default: false.
-- **scrollY**: Enables vertical scrolling and sets fixed height (e.g., 400, '400px'). Disables pagination if large enough to fit all data. Default: 400.
-- **scrollX**: Enables horizontal scrolling. Useful when table width exceeds container. Default: false
-- **info**: Enables text "Total Records: 0". Default: true.
-- **searching**: 	Enables the input search. Default: true.
+Usw the `options` allows customization of the table’s interface and available features. These `options` are set during initialization and control layout, behavior, and interactivity.
+- **isScroll**: (Custom) A flag to conditionally enable scroll-related styles or logic in the component. Default: false.
+- **scrollY**: Enables vertical scrolling and sets a fixed height (e.g., 400, '400px'). Automatically disables pagination if the height is large enough to show all rows. Default: 400.
+- **scrollX**: Enables horizontal scrolling. Useful when the table width exceeds its container. Default: false
+- **info**: Displays footer text such as "Total Records: 0". Default: true.
+- **searching**: 	Enables the built-in search input for client-side filtering. Default: true.
 - **paging**: Enables pagination and select record. Default: true.
 - **reload**: Enables button reload. Default: true.
-- **lengthMenu**: Dropdown menu for number of rows per page. Default: [10, 25, 50, 100].
-- **pageLength**: Number of rows to show per page. Default: 10.
+- **lengthMenu**: A dropdown menu allowing the user to select how many rows to show per page. Default: [10, 25, 50, 100].
+- **pageLength**: Sets the default number of rows displayed per page. Default: 10.
   
 You find more options in [datatable.net](https://datatables.net/reference/option/)
 
@@ -156,7 +155,7 @@ const optionDefault = {
 ```
 
 ### + selectedPk and v-model
-The `selectedPk` is the actual string key and Use a `v-model` to make the table selectable. The `v-model` will be an array of the selected rows. 
+The `selectedPk` defines the primary key field used to uniquely identify each row in the table (as a string). Use `v-model` to enable row selection in the table. The `v-model` will be an array containing the selected rows based on the `selectedPk` value.
 
 ```vue
 <template>
@@ -176,7 +175,8 @@ const columns = [
 ```
 
 ### + stateKey
-Use the `stateKey` for allows the OCTable to remember data and filter when change to detail page and back to index page. The `stateKey` is string.
+Use the `stateKey` to enable `OCTable` to remember its state (including filters, sorting, and pagination) when navigating to a detail page and returning to the index page.
+The `stateKey` must be a unique string used as the identifier for saving and restoring the table state.
 
 ```vue
 <template>
@@ -195,7 +195,7 @@ const columns = [
 ```
 
 ### + keyTable
-Use the `keyTable` to identify a DOM element uniquely so Vue can efficiently re-render or re-create it when something changes.
+Use the `keyTable` to identify a DOM element uniquely so Vue can efficiently re-render or re-create it when `keyTable` changes value.
 
 ```vue
 <template>
@@ -245,22 +245,25 @@ const columns = [
 ```
 
 ### + isTotalDetail
-Use the `isTotalDetail` to hidden OCTableFooter if `isTotalDetail` is `true`. Default: false.
+Use the `isTotalDetail` to hide the OCTableFooter. When `isTotalDetail` is set to `true`, the footer will be hidden. Default: false
 
 ### + haveBorder
-Use the `haveBorder` for OCTable has style border if `haveBorder` is `true`. Default: false.
+Use the `haveBorder` to apply a border style to the `OCTable`. When `haveBorder` is set to `true`, the table will be displayed with borders. Default: false.
 
 ### + autoload
-Use the `autoload` in combination with the `api` prop to control whether data is automatically loaded from the server. When `autoload` is set to `false`, data will not be fetched automatically.
-To manually trigger data loading, use the exposed `ref` and call the `reload` function. Default: true.
+Use the `autoload` in combination with the `api` prop to control whether data is automatically loaded from the server. When `autoload` is set to `false`, data will not be fetched automatically. To manually trigger data loading, use the exposed `ref` and call the `reload` function. Default: true.
 
 ### + selectAllPk
+Use the `selectAllPk` to display a "Select All" button that selects all rows in the table.The value of selectAllPk should be a string that matches the unique key property in `data` prop or data from `api` prop.
 
 ### + hideGroupBtnSelect
+Use the `hideGroupBtnSelect` to hide the "Select All" button group. When set to `true`, the selection controls will not be displayed. Default: true.
 
 ## Slots
+You can use `slots` to customize the header, the footer and data cells of the table.
 
 ### + headerTable
+Use the `#headerTable` slot to customize
 
 ### + headerLeft
 
