@@ -263,34 +263,325 @@ Use the `hideGroupBtnSelect` to hide the "Select All" button group. When set to 
 You can use `slots` to customize the header, the footer and data cells of the table.
 
 ### + headerTable
-Use the `#headerTable` slot to customize top of header.
+Use the `#headerTable` slot to allows the parent to inject custom content above the table header, often used for extra actions or title.
+
+```vue
+<template>
+   <OCTable :api="api" :columns="columns">
+      <template #headerTable>
+        <h3>My Table Title</h3>
+      </template>
+   </OCTable>
+</template>
+```
 
 ### + headerLeft
+Use the `#headerLeft` slot to custom content on the left side of the table header, such as filter button.
+
+```vue
+<template>
+   <OCTable :api="api" :columns="columns">
+      <template #headerLeft>
+        <OCTblFilter v-model="filter" state-key="stateTable" :inputs="inputs" width="w-[420px]" @onClick="fnClickFilter"/>
+      </template>
+   </OCTable>
+</template>
+```
 
 ### + headerCenter
+Use the `#headerCenter` slot to custom content in the center of the header.
+
+```vue
+<template>
+   <OCTable :api="api" :columns="columns">
+      <template #headerCenter>
+        <div>Center Header Content</div>
+      </template>
+   </OCTable>
+</template>
+```
 
 ### + headerApplyFilter
+Use the `#headerApplyFilter` slot to injecting custom filter apply buttons or chip components in the header.
+
+```vue
+<template>
+   <OCTable :api="api" :columns="columns">
+      <template #headerApplyFilter>
+        <OCTblChip v-model="chips" state-key="stateTable" @on-remove="fnRemoveChip" />
+      </template>
+   </OCTable>
+</template>
+```
 
 ### + headerRight
+Use the `#headerRight` slot to custom content on the right side of the table header, e.g. export buttons or additional actions.
+
+```vue
+<template>
+   <OCTable :api="api" :columns="columns">
+      <template #headerRight>
+        <OCBtns :data="btnHeader" @click="eventBtnHeader" />
+      </template>
+   </OCTable>
+</template>
+```
 
 ### + middleTable
+Use the `#middleTable` slot to render custom content between header and the table
 
-### + template
+```vue
+<template>
+   <OCTable :api="api" :columns="columns">
+      <template #middleTable>
+        <div>Middle Table</div>
+      </template>
+   </OCTable>
+</template>
+```
 
 ### + loading
+Use the `#loading` slot to custom content shown during loading.
+
+```vue
+<template>
+   <OCTable :api="api" :columns="columns">
+      <template #loading>
+        <MyCustomSpinner />
+      </template>
+   </OCTable>
+</template>
+```
+
+### + template
+Use the `#template` slot to custom rendering for a card layout or alternate view instead of a table (like a grid or list).**v-bind="[dataTemplate]"** means you're passing the whole dataTemplate array as slot props.
+
+```vue
+<template>
+   <OCTable :api="api" :columns="columns">
+      <template #template="[items]">
+        <CardList :data="items" />
+      </template>
+   </OCTable>
+</template>
+```
 
 ### + totalDetail
+Use the `#totalDetail` slot to custom showing total summary info under the table.
+
+```vue
+<template>
+   <OCTable :api="api" :columns="columns">
+      <template #totalDetail="{items}">
+        <CardList :data="items" />
+      </template>
+   </OCTable>
+</template>
+```
 
 ### + ShowDetailAfterTableOne
+Use the `#ShowDetailAfterTableOne` slot to custom content below the table (first position), like additional detail cards or logs.
+
+```vue
+<template>
+   <OCTable :api="api" :columns="columns">
+      <template #ShowDetailAfterTableOne>
+         <MoreDetails />
+      </template>
+   </OCTable>
+</template>
+```
 
 ### + ShowDetailAfterTableTwo
+Use the `#ShowDetailAfterTableTwo` slot to show more content after the table—useful if you want to split content into two zones.
 
-### + Dynamic
+```vue
+<template>
+   <OCTable :api="api" :columns="columns">
+      <template #ShowDetailAfterTableOne>
+         <MoreDetails />
+      </template>
+   </OCTable>
+</template>
+```
+
+### + Dynamic slots 
+Dynamic column slot based on the column name and use the `Dynamic slots` slot to allows the parent component to define a custom cell renderer for each column.
+
+```vue
+<template>
+   <OCTable :api="api" :columns="columns">
+      <template #username="props">
+        <strong>{{ props.cellData }}</strong>
+      </template>
+
+      <template #actions="props">
+        <button @click="edit(props.rowData)">Edit</button>
+      </template>
+   </OCTable>
+</template>
+```
 
 ## Emits
+Use to declares the custom events that the component can emit to the parent.
 
-## Ref
-Use to call function from Table. It has function such as { **dt()**, **filter()**, **reload()**, **responsive()** }.
+### emits("update:data", dataSender)
+Use to inform the parent component that the request is about to be sent and what the filter/sort/page/search request payload (dataSender).
+
+```vue
+<template>
+   <OCTable :api="api" :columns="columns" @update:data="fnUpdateData"/>
+</template>
+
+<script setup>
+function fnUpdateData(d){
+    d.Id = 1
+    d.PeriodCode = 10213
+    d.Type = 'Department'
+}
+</script>
+```
+
+### emits("update:dataSrc", data.value)
+Once the data is successfully fetched from the API, this event sends the full data or custom data to the table component.
+
+```vue
+<template>
+   <OCTable :api="api" :columns="columns" @update:dataSrc="fnUpdateDataSrc"/>
+</template>
+
+<script setup>
+const storeDataTable = ref()
+function fnUpdateDataSrc(d){
+    d.dataSrc = d.data
+    storeDataTable.value = d.dataSrc
+}
+</script>
+```
+
+### emits("onSaveState", state)
+This emits the entire table state, useful when you're using state persistence with stateKey. The parent or a pinia store will save the table’s filter/order/page/data config.
+
+### emits("actionCheck",data)
+The event `actionCheck` is emitted whenever a checkbox row is selected or deselected in the DataTable. This lets the parent component know what has been selected or unselected.
+
+```vue
+<template>
+   <OCTable :api="api" :columns="columns" @actionCheck="handleChecked"/>
+</template>
+
+<script setup>
+function handleChecked(data) {
+  if (Array.isArray(data)) {
+    console.log("Remaining selected rows:", data);
+  } else {
+    console.log("New row selected:", data);
+  }
+}
+</script>
+```
+
+### emits("reloadByFixedData",data)
+is emitting a custom event called "reloadByFixedData" from inside your table component to inform the parent component to perform a reload when:
+- The table is using fixed (static) data (i.e., no external API)
+- You need the parent to refresh or change the data source (maybe trigger a data fetch or state update).
+
+```vue
+<template>
+   <OCTable :data="myStaticData" :columns="columns" @reloadByFixedData="fetchNewStaticData"/>
+</template>
+
+<script setup>
+const myStaticData = ref()
+function fetchNewStaticData() {
+  // maybe pull from localStorage or re-filter something
+  myStaticData.value = [...getFilteredList()]
+}
+</script>
+```
+
+### emits("onOrder",order)
+The event `actionCheck` is emitted an event from the table component to the parent component with the current sorting order (i.e., which column and what direction).
+
+```vue
+<template>
+   <OCTable :data="data" :columns="columns" @onOrder="handleOrder"/>
+</template>
+
+<script setup>
+function handleOrder(order) {
+  const [colIndex, dir] = order[0];
+  console.log(`Sorted column ${colIndex} in ${dir} order`);
+  // maybe: save to state or trigger something
+}
+
+</script>
+```
+
+### emits("onChangePagination", page, record)
+Use to let the parent know the pagination state.
+
+```vue
+<template>
+   <OCTable :data="data" :columns="columns" @onChangePagination="handlePagination"/>
+</template>
+
+<script setup>
+function handlePagination(currentPage, pageSize) {
+  console.log("User moved to page", currentPage);
+  console.log("Records per page:", pageSize);
+
+  // Optional: Save to state
+  // savePaginationState({ page: currentPage, pageSize });
+}
+</script>
+```
+
+### emits("onSelectRecord", record, page)
+Use to inform the parent of page size change so it can adjust state or fetch accordingly.
+
+```vue
+<template>
+   <OCTable :data="data" :columns="columns" @onSelectRecord="handleRecordSelection"/>
+</template>
+
+<script setup>
+function handleRecordSelection(recordsPerPage, currentPage) {
+  console.log("Records per page:", recordsPerPage); // e.g., 25
+  console.log("Current page:", currentPage);        // e.g., 1
+
+  // Optional: store preferences or trigger other actions
+  // saveTableSettings({ recordsPerPage, page: currentPage })
+}
+</script>
+```
+
+### emits("onSearching", search)
+This emit notifies the parent component that a search operation has occurred — and passes the search keyword to the parent.
+
+##​​ ​​Expose
+Used to expose internal functions, refs, or variables from a component so the parent can access and use them via `ref`.
+It has function such as { **dt()**, **filter()**, **reload()**, **responsive()** }.
+- **dt()**: Returns the DataTable instance (for direct manipulation).
+- **filter()**: Fetches data from the API and updates the table (with page reset).
+- **reload()**: Reloads data (optional: keep the current page or not).
+- **responsive()**: Forces the DataTable to recalculate its responsive layout.
+
+```vue
+<template>
+   <OCTable ref="ocTableRef" :api="api" :columns="columns"/>
+</template>
+
+<script setup>
+const ocTableRef = ref();
+
+// Access exposed method
+function refreshTable() {
+  ocTableRef.value?.reload(); // Calls exposed reload() in child
+}
+</script>
+```
+
 
 
 
