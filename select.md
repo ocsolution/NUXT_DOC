@@ -125,151 +125,140 @@ Property name to extract totalRecord from the response for pagination. Note: Typ
 ### + clearSelect
 Used to enables the `---Clear Selected---` option. Only relevant in single-select mode. Default: `true`.
 
+```vue
+<OCSelect v-model="selectedUser" :clearSelect="false" />
+```
+
 ### + pk
 The primary key field used to identify options. Used for comparing selected items. Default: `null`.
+
+```vue
+<OCSelect v-model="selectedItem" :pk="'UserId'" />
+```
 
 ### + templateLeading
 Used to controls how options and selected items are displayed (leading/profile/info).
 
+```vue
+<OCSelect v-model="selectedUser"
+  :templateLeading="{
+    labelKey: 'Name',
+    labelKeyEn: 'NameEnglish',
+    imagePath: 'Avatar',
+    gender: 'Gender'
+  }"
+/>
+```
+
 ### + templateOption
 Used to controls how dropdown options are displayed (profile/info view with sublabel).
 
+```vue
+<OCSelect v-model="selectedUser"
+  :templateOption="{
+    labelKey: 'Name',
+    labelKeyEn: 'NameEnglish',
+    subLabelKey: 'Email',
+    subLabelKeyEn: 'Email',
+    imagePath: 'Avatar',
+    gender: 'Gender'
+  }"
+/>
+```
 ### + isNotAllowRemoteSelect
-If `true`, prevents calling `remoteSelect()` method programmatically.
+If `true`, prevents calling `remoteSelect()` method programmatically. Default: `false`.
 
+```vue
+<OCSelect v-model="selectedUser" :isNotAllowRemoteSelect="true" />
+```
 
+## Emits
 
-
-
-
-###### [Home](/_doc)
-
-## \# **OCSelect**
-
-- ### **Usage**
-
-  \- Use a **v-model** to make the OCSelect reactive.
+### + @selected
+Emitted every time the selected value changes.This emits has 2 mode:
+- In single mode: `an object` or `undefined`.
+- In multiple mode: `an array of selected objects` or `[]`.
 
 ```vue
 <template>
-  <OCSelect
-    v-model="select"
-    text="Code"
-    :api="{
-      url: 'https://demo1api.kottrasala.com//api/enrollment/get',
-      method: 'post',
-    }"
-    :options="{ placeholder: 'Please select you' }"
-  />
+  <OCSelect v-model="selectedUser" @selected="handleSelection" />
 </template>
 
 <script setup>
-const select = ref();
-</script>
-```
-
-- ### **Api**
-
-  \- Use the **api** prop to get data from server.
-
-```vue
-<template>
-  <OCSelect
-    text="Code"
-    :api="{
-      url: 'https://demo1api.kottrasala.com//api/enrollment/get',
-      method: 'post',
-    }"
-  />
-</template>
-```
-
-- ### **Select Multiple data**
-
-```vue
-<template>
-  <OCSelect
-    text="Code"
-    :api="{
-      url: 'https://demo1api.kottrasala.com//api/enrollment/get',
-      method: 'post',
-    }"
-    :options="{
-      placeholder: 'Please select item',
-      multiple: true,
-    }"
-  />
-</template>
-
-<script setup>
-const select = ref();
-</script>
-```
-
-- ### **Function in OCSelect**
-
-  \- **update:template** : use this function for customize UI lists on OCSelect.
-
-  \- **update:selection** : use this function for customize UI when selected list on OCSelect.
-
-  \- **update:data** : use this function for set data filter to API.
-
-  \- **update:process**: use this function for get data from API.
-
-```vue
-<template>
-  <OCSelect
-    text="Code"
-    :api="{
-      url: 'https://demo1api.kottrasala.com//api/enrollment/get',
-      method: 'post',
-    }"
-    :options="{
-      placeholder: 'Please select item',
-    }"
-    @update:data="updateData"
-    @update:process="updateProcess"
-    @update:template="updateTemplate"
-    @update:selection="updateSelection"
-  >
-  </OCSelect>
-</template>
-
-<script setup>
-const select = ref();
-
-function updateData(e) {
-  console.log("updateData", e);
-}
-function updateProcess(e) {
-  console.log("updateProcess", e);
-}
-function updateSelection(e) {
-  e.selection = `<div class='flex gap-1.5 items-center'>
-                    <img src="/img/default.svg" class="w-5 h-5 rounded-full"/>
-                    <span>${e.NameKh}</span>
-                </div>`;
-}
-
-function updateTemplate(e) {
-  e.template = `<div class='flex gap-1.5 items-center'>
-                    <img src="/img/default.svg" class="w-7 h-7 rounded-full"/>
-                    <span>${e.NameKh}</span>
-                </div>`;
+function handleSelection(val) {
+  console.log("Selected:", val);
 }
 </script>
 ```
 
-- ### **Props**
+### + @mapData=""
+Emitted after data is fetched or updated.
 
-  \- **text** : string. The default prop set **null** and is **required**.
+```vue
+<template>
+  <OCSelect v-model="selectedUser" @mapData="handleListData" />
+</template>
 
-  \- **pk** : string. The default prop set **Id** and is **required**.
+<script setup>
+function handleListData(data) {
+  console.log("data:", data);
+}
+</script>
+```
 
-  \- **api** : use to get data from server . if type of api is `GET` **api** prop value is string `api="/api/enrollment/list"` and type of api is `POST` **api** prop value is object `:api="{ url:'/api/enrollment/list', type:'POST' }"`.
+### + @onSearch=""
+Emitted when user types in the search box
 
-  \- **options** : object. The default prop set **\{ search: true, pagination: true, placeholder: '', multiple: false, tag: false, required:false \}**
+```vue
+<template>
+  <OCSelect v-model="selectedUser" @onSearch="logSearch" />
+</template>
 
-  \- **data** : use to get data from localData and value is array **\[ \]**
+<script setup>
+function logSearch(search) {
+  console.log("User is searching for:", search);
+}
+</script>
+```
 
----
+## Expose
+This makes internal functions available to the parent component, so the parent can control or refresh the `<OCSelect />` programmatically.
+
+### + remoteSelect(filter: object)
+Programmatically set selected item(s) by `pk` value or filter from `API/local`. `filter` should include pk and value(s) to match in data source, can also include additional filters ({ isFilter: true }).
+
+```vue
+<template>
+  <OCSelect ref="refSelectUser" :api="{ url: '/api/users', method: 'POST' }" />
+</template>
+
+<script setup>
+const refSelectUser = ref()
+
+// Select user with ID 5
+refSelectUser.value.remoteSelect({ pk: 'Id', Id: 5 })
+
+// For multiple mode: select by array of IDs
+// refSelectUser.value.remoteSelect({ pk: 'Id', Id: [1, 2, 3] })
+</script>
+```
+
+### + reload()
+Re-fetch options list (from API or local)
+
+```vue
+<template>
+  <Button @click="fnReload">Reload</Button>
+  <OCSelect ref="refSelectUser" :api="{ url: '/api/users', method: 'POST' }" />
+</template>
+
+<script setup>
+const refSelectUser = ref()
+
+// Reload options manually
+function fnReload(){
+  refSelectUser.value.reload()
+}
+</script>
+```
+
