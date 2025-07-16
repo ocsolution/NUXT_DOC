@@ -1,3 +1,147 @@
+# OCSelect
+
+## Props
+
+### + required
+Used to enforce a required selection. If `true`, prevents selection from being cleared. Default: `false`.
+
+```vue
+<OCSelect v-model="selectedUser" :required="true" />
+```
+
+### + localData
+Used Local source for select options. Expected to have a `.data` array and optionally `.keySearch`.
+
+```vue
+<OCSelect v-model="selectedUser" :localData="{ data: users }" />
+```
+
+### + api
+Used to enables remote fetching for select options. API config object (e.g., `{ url, method, filter, where, fixObjectValue }`).
+
+```vue
+<OCSelect v-model="selectedUser" :api="{ url: '/api/users', method: 'POST', where: 'data', filter: { active: true } }"/>
+```
+
+### + isNotAllowClear
+Used to prevents adding a ---Clear Selected--- option, if `true`. Default: `false`.
+
+```vue
+<OCSelect v-model="selectedUser" :isNotAllowClear="true" />
+```
+
+### + defaultSelect
+Used to auto-selects the first option, if `true`. Default: `false`.
+
+```vue
+<OCSelect v-model="selectedUser" :defaultSelect="true" />
+```
+
+### + multiple
+Used to enables multi-selection mode, if `true`. Default: `false`.
+
+```vue
+<OCSelect v-model="selectedUsers" :multiple="true" />
+```
+
+### + selectIfOne
+If `true` and only one item exists, auto-selects it. Default: `false`.
+
+```vue
+<OCSelect v-model="selectedRole" :localData="{ data: roles }" :selectIfOne="true" />
+```
+
+### + searchable
+If `true`, enables search. If a function, it’s used as custom search handler. Default: `false`.
+
+```vue
+<OCSelect v-model="selectedUser" :searchable="false" />
+```
+
+Or use a custom search function:
+
+```vue
+<OCSelect v-model="selectedUser" :searchable="customSearchFn" />
+```
+
+### + disabled
+If `true`, disables the component entirely. Default: `false`.
+
+```vue
+<OCSelect v-model="selectedUser" :disabled="true" />
+```
+
+### + specificProp
+Property name used to auto-select value during initialization.
+
+```vue
+<OCSelect v-model="selectedUser" :localData="{ data: users }" specificProp="IsDefault"/>
+```
+
+### + variant
+Style variant: `"outline"`, `"solid"`, `"solidBackGround"`, `"none"` — determines visual style.
+
+```vue
+<OCSelect v-model="selectedUser" variant="solid" />
+<OCSelect v-model="selectedUser" variant="outline" />
+<OCSelect v-model="selectedUser" variant="none" />
+```
+
+### + class
+Extra CSS class to apply to the root container.
+
+```vue
+<OCSelect v-model="selectedUser" class="custom-border" />
+```
+
+### + placeholder
+Text to show when no selection is made. Default: `Please select`.
+
+```vue
+<OCSelect v-model="selectedUser" placeholder="Choose a user" />
+```
+
+### + selectType
+Used to trigger special logic like selecting the current academic year. Default: `""`.
+
+```vue
+<OCSelect v-model="academicYear" selectType="academicYear" />
+```
+
+### + colorPlaceholder
+If `true`, renders placeholder text in primary color instead of grey. Default: `false`.
+
+```vue
+<OCSelect v-model="selectedUser" :colorPlaceholder="true" />
+```
+
+### + recordCountPropotyName
+Property name to extract totalRecord from the response for pagination. Note: Typo, should be `recordCountPropertyName`. Default: `false`.
+
+```vue
+<OCSelect v-model="selectedUser" :api="{ url: '/api/users' }" recordCountPropotyName="TotalUsers"/>
+```
+
+### + clearSelect
+Used to enables the `---Clear Selected---` option. Only relevant in single-select mode. Default: `true`.
+
+### + pk
+The primary key field used to identify options. Used for comparing selected items. Default: `null`.
+
+### + templateLeading
+Used to controls how options and selected items are displayed (leading/profile/info).
+
+### + templateOption
+Used to controls how dropdown options are displayed (profile/info view with sublabel).
+
+### + isNotAllowRemoteSelect
+If `true`, prevents calling `remoteSelect()` method programmatically.
+
+
+
+
+
+
 ###### [Home](/_doc)
 
 ## \# **OCSelect**
