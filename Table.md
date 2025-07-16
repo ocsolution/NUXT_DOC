@@ -423,7 +423,7 @@ Dynamic column slot based on the column name and use the `Dynamic slots` slot to
 ## Emits
 Use to declares the custom events that the component can emit to the parent.
 
-### + emits("update:data", dataSender)
+### + @update:data=""
 Use to inform the parent component that the request is about to be sent and what the filter/sort/page/search request payload (dataSender).
 
 ```vue
@@ -440,7 +440,7 @@ function fnUpdateData(d){
 </script>
 ```
 
-### + emits("update:dataSrc", data.value)
+### + @update:dataSrc=""
 Once the data is successfully fetched from the API, this event sends the full data or custom data to the table component.
 
 ```vue
@@ -457,10 +457,10 @@ function fnUpdateDataSrc(d){
 </script>
 ```
 
-### + emits("onSaveState", state)
+### + @onSaveState=""
 This emits the entire table state, useful when you're using state persistence with stateKey. The parent or a pinia store will save the table’s filter/order/page/data config.
 
-### + emits("actionCheck",data)
+### + @actionCheck=""
 The event `actionCheck` is emitted whenever a checkbox row is selected or deselected in the DataTable. This lets the parent component know what has been selected or unselected.
 
 ```vue
@@ -479,7 +479,7 @@ function handleChecked(data) {
 </script>
 ```
 
-### + emits("reloadByFixedData",data)
+### + @reloadByFixedData=""
 is emitting a custom event called "reloadByFixedData" from inside your table component to inform the parent component to perform a reload when:
 - The table is using fixed (static) data (i.e., no external API)
 - You need the parent to refresh or change the data source (maybe trigger a data fetch or state update).
@@ -498,7 +498,7 @@ function fetchNewStaticData() {
 </script>
 ```
 
-### + emits("onOrder",order)
+### + @onOrder=""
 The event `actionCheck` is emitted an event from the table component to the parent component with the current sorting order (i.e., which column and what direction).
 
 ```vue
@@ -516,7 +516,7 @@ function handleOrder(order) {
 </script>
 ```
 
-### + emits("onChangePagination", page, record)
+### + @onChangePagination=""
 Use to let the parent know the pagination state.
 
 ```vue
@@ -535,7 +535,7 @@ function handlePagination(currentPage, pageSize) {
 </script>
 ```
 
-### + emits("onSelectRecord", record, page)
+### + @onSelectRecord=""
 Use to inform the parent of page size change so it can adjust state or fetch accordingly.
 
 ```vue
@@ -554,8 +554,20 @@ function handleRecordSelection(recordsPerPage, currentPage) {
 </script>
 ```
 
-### + emits("onSearching", search)
+### + @onSearching=""
 This emit notifies the parent component that a search operation has occurred — and passes the search keyword to the parent.
+
+```vue
+<template>
+   <OCTable :data="data" :columns="columns" @onSearching="handleSearching"/>
+</template>
+
+<script setup>
+function handleSearching(search) {
+  console.log("search:", search); // e.g., Lundy
+}
+</script>
+```
 
 ## Expose
 Used to expose internal functions, refs, or variables from a component so the parent can access and use them via `ref`.
