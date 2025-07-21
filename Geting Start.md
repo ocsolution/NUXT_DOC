@@ -88,7 +88,14 @@ Nuxt 3 uses file-based routing. Pages are defined in the `pages/` directory:
 - `pages/product_detail/[id].vue` → `/product_detail/:id` (dynamic route)
 
 ### State Management
-Use Pinia for state management [https://pinia.vuejs.org](https://pinia.vuejs.org/getting-started.html)
+Corrected Prompt: "Use Pinia for state management. Name the file the same as the function name, e.g., `useCount.js`. Note: Do not create a single file in a single folder."
+- File name: `useCount.js`
+- Function name: `useCountStore`
+- Key name: `CountStore`
+```text
+stores/
+│     └── useCount.js
+```
 ```javascript
 // stores/mainStore/countStore.ts
 export const useCountStore = defineStore('CountStore', {
@@ -111,7 +118,6 @@ if (import.meta.hot) {
 ```
 
 ### Middlewares
-This note explains how to implement layouts in a Nuxt.js application, focusing on the default and navbar layouts. Layouts define the structure of pages, allowing consistent rendering of components like navigation bars or footers across multiple pages.
 ```javascript
 definePageMeta({
   middleware: ["auth", "permission"],
@@ -120,6 +126,7 @@ definePageMeta({
 ```
 
 ### Layouts
+This note explains how to implement layouts in a Nuxt.js application, focusing on the default and navbar layouts. Layouts define the structure of pages, allowing consistent rendering of components like navigation bars across multiple pages.
 - `default` - No navbar
 - `navbar` - With list of menu
 ```javascript
