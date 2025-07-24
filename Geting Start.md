@@ -27,7 +27,7 @@ Follow these steps to set up the project locally:
 2. **Run the Project**:
    - Development: `npm run dev`.
    - Production build: `npm run generate`.
-   - Production build for HCS: `npm run generateHcs`.
+   - Production build for HCS: `npm run genHcs`.
    - Production deploy `bash deploy.sh`
 3. **Note**: On Windows, use WSL for faster HMR if performance is slow.
 
