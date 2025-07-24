@@ -1,4 +1,4 @@
-# Utils
+# Utils (Updating...)
 
 ### Utility Functions
 The following utility functions are available to streamline development in the Nuxt 3 project. These functions are designed to be reusable, type-safe, and compatible with client-side.
